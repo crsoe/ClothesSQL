@@ -1,0 +1,53 @@
+CREATE TABLE Kategori
+(
+  KategoriID INT NOT NULL,
+  Typ VARCHAR NOT NULL,
+  PRIMARY KEY (KategoriID)
+);
+
+CREATE TABLE Kund
+(
+  KundID INT NOT NULL,
+  Kundnr INT NOT NULL,
+  PRIMARY KEY (KundID)
+);
+
+CREATE TABLE Beställningar
+(
+  BeställID INT NOT NULL,
+  Datum INT NOT NULL,
+  KundID INT NOT NULL,
+  PRIMARY KEY (BeställID),
+  FOREIGN KEY (KundID) REFERENCES Kund(KundID)
+);
+
+CREATE TABLE Prisgrupp
+(
+  PrisID INT NOT NULL,
+  SEK INT NOT NULL,
+  PRIMARY KEY (PrisID)
+);
+
+CREATE TABLE Storlek
+(
+  StorlekID INT NOT NULL,
+  Storlek INT NOT NULL,
+  PRIMARY KEY (StorlekID)
+);
+
+CREATE TABLE Produkt
+(
+  ProduktID INT NOT NULL,
+  Namn VARCHAR NOT NULL,
+  Färg VARCHAR NOT NULL,
+  Märke VARCHAR NOT NULL,
+  PrisID INT NOT NULL,
+  BeställID INT NOT NULL,
+  StorlekID INT NOT NULL,
+  KategoriID INT NOT NULL,
+  PRIMARY KEY (ProduktID),
+  FOREIGN KEY (PrisID) REFERENCES Prisgrupp(PrisID),
+  FOREIGN KEY (BeställID) REFERENCES Beställningar(BeställID),
+  FOREIGN KEY (StorlekID) REFERENCES Storlek(StorlekID),
+  FOREIGN KEY (KategoriID) REFERENCES Kategori(KategoriID)
+);
